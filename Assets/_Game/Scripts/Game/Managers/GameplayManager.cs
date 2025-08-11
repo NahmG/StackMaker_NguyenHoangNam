@@ -4,13 +4,18 @@ using UnityEngine;
 public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Ins;
-    [SerializeField] Player player;
+    [SerializeField] Player playerPref;
+    [SerializeField] CameraFollow mainCam;
     public int brickCount;
+    Player player;
+    public Player Player => player;
+    Level currentLevel => LevelManager.Ins.CurrentLevel;
 
     void Awake()
     {
         Ins = this;
     }
+
     void Start()
     {
         LevelManager.Ins.OnInit();
@@ -20,8 +25,7 @@ public class GameplayManager : MonoBehaviour
 
     public void StartLevel()
     {
-        LevelManager.Ins.LoadLevel();
-        player.OnInit(LevelManager.Ins.CurrentLevel.startPosition);
+        ConstructLevel();
         GameManager.Ins.ChangeState(GameState.GAME_PLAY);
     }
 
@@ -35,5 +39,16 @@ public class GameplayManager : MonoBehaviour
             UIManager.Ins.OpenUI(UI.WIN);
             GameManager.Ins.ChangeState(GameState.WIN);
         }
+    }
+
+    void ConstructLevel()
+    {
+        LevelManager.Ins.LoadLevel();
+        if (player == null)
+        {
+            player = Instantiate(playerPref);
+        }
+        player.OnInit(currentLevel.startPosition);
+        mainCam.SetTarget(player.SkinTF);
     }
 }

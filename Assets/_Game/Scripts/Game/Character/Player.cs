@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     [SerializeField] Transform skinTf;
+    public Transform SkinTF => skinTf;
     bool isWin;
 
     #region UNITY_API
