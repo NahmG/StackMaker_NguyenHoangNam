@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -19,7 +20,6 @@ public class GameplayManager : MonoBehaviour
 
     public void StartLevel()
     {
-        Debug.Log($"Load Level {LevelManager.Ins.Level}");
         LevelManager.Ins.LoadLevel();
         player.OnInit(LevelManager.Ins.CurrentLevel.startPosition);
         GameManager.Ins.ChangeState(GameState.GAME_PLAY);
@@ -27,8 +27,13 @@ public class GameplayManager : MonoBehaviour
 
     public void Win()
     {
-        UIManager.Ins.CloseAll();
-        UIManager.Ins.OpenUI(UI.WIN);
-        GameManager.Ins.ChangeState(GameState.WIN);
+        DOVirtual.DelayedCall(.5f, OnWin);
+
+        void OnWin()
+        {
+            UIManager.Ins.CloseAll();
+            UIManager.Ins.OpenUI(UI.WIN);
+            GameManager.Ins.ChangeState(GameState.WIN);
+        }
     }
 }

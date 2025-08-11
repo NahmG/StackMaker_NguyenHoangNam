@@ -28,20 +28,23 @@ public class MainMenuCanvas : UICanvas
         };
     }
 
-    void Update()
+    public override void Open(object param = null)
     {
-        startTime += Time.deltaTime;
-        float rate = Mathf.Clamp01(startTime / loadTime);
+        base.Open(param);
 
-        progressBar.fillAmount = Mathf.Lerp(0, 1, rate);
+        Sequence seq = DOTween.Sequence();
 
-        int value = (int)Mathf.Lerp(0, 100, rate);
-        progressText.text = $"{value}%";
-
-        if (startTime >= loadTime)
+        seq.Append(DOVirtual.Float(0, 1, loadTime, value =>
         {
-            AnimPlayBtnFadeIn();
-        }
+            progressBar.fillAmount = value;
+        }));
+        seq.Join(DOVirtual.Int(0, 100, loadTime, value =>
+        {
+            progressText.text = $"{value}%";
+        }));
+
+        seq.OnComplete(() => AnimPlayBtnFadeIn());
+        seq.SetAutoKill(true);
     }
 
     public override void Setup()
@@ -65,5 +68,7 @@ public class MainMenuCanvas : UICanvas
         seq.Join(playButton.transform.DOScale(1, .5f));
 
         seq.SetEase(Ease.OutQuad);
+
+        seq.SetAutoKill(true);
     }
 }

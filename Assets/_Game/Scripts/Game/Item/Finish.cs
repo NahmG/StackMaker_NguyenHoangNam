@@ -21,7 +21,7 @@ public class Finish : MonoBehaviour
 
     void OnFinish()
     {
-        Debug.Log("Finish");
+        // Debug.Log("Finish");
 
         People.gameObject.SetActive(true);
         People.SetTrigger("Finish");

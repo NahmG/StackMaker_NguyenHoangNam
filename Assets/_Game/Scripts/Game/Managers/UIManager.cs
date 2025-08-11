@@ -50,7 +50,8 @@ public class UIManager : MonoBehaviour
     {
         foreach (var key in UICanvas.Keys)
         {
-            CloseUI(key);
+            if (IsOpen(key))
+                CloseUI(key);
         }
     }
 

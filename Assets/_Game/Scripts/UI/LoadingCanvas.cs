@@ -9,7 +9,6 @@ public class LoadingCanvas : UICanvas
     [SerializeField] RectTransform mask;
     [SerializeField] float loadTime;
     Action action;
-    Sequence seq;
 
     public override void Open(object param = null)
     {
@@ -23,29 +22,17 @@ public class LoadingCanvas : UICanvas
         AnimLoading();
     }
 
-    void Update()
+    public override void Setup()
     {
-        startTime += Time.deltaTime;
-
-        if (startTime >= loadTime)
-        {
-            action();
-            startTime = 0;
-        }
+        base.Setup();
+        action = null;
     }
 
     void AnimLoading()
     {
-        if (seq != null && seq.IsActive())
-        {
-            seq.Kill();
-        }
-
-        seq = DOTween.Sequence();
-        seq.Append(mask.DOScale(0, loadTime));
-
+        Sequence seq = DOTween.Sequence();
+        seq.Append(mask.DOScale(0, loadTime).OnComplete(() => action()));
         seq.AppendInterval(.5f);
-
         seq.Append(mask.DOScale(1, loadTime))
            .OnComplete(() => Close());
 
