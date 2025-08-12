@@ -4,6 +4,8 @@ public class Finish : MonoBehaviour
 {
     public GameObject chestOpen;
     public GameObject chestClose;
+    public ParticleSystem particle1;
+    public ParticleSystem particle2;
     public Animator People;
 
     void OnTriggerEnter(Collider other)
@@ -21,12 +23,13 @@ public class Finish : MonoBehaviour
 
     void OnFinish()
     {
-        // Debug.Log("Finish");
-
         People.gameObject.SetActive(true);
         People.SetTrigger("Finish");
 
         chestClose.SetActive(false);
         chestOpen.SetActive(true);
+
+        particle1.Play();
+        particle2.Play();
     }
 }

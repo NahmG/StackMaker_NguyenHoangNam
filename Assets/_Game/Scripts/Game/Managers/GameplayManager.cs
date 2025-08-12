@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ public class GameplayManager : MonoBehaviour
 
     public void Win()
     {
-        DOVirtual.DelayedCall(.5f, OnWin);
+        DOVirtual.DelayedCall(1.5f, OnWin);
 
         void OnWin()
         {
@@ -51,4 +52,16 @@ public class GameplayManager : MonoBehaviour
         player.OnInit(currentLevel.startPosition);
         mainCam.SetTarget(player.SkinTF);
     }
+
+    #region GAME_PARAMETER
+    int gem;
+    public int Gem => gem;
+    public Action OnUpdateGemCount;
+
+    public void AddDiamond(int value)
+    {
+        gem += value;
+        OnUpdateGemCount?.Invoke();
+    }
+    #endregion
 }
