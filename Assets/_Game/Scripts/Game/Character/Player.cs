@@ -196,6 +196,7 @@ public class Player : MonoBehaviour
     public void OnWin()
     {
         isWin = true;
+        GameplayManager.Ins.brickCount = playerBricks.Count;
         GameplayManager.Ins.Win();
         OnDespawn();
     }

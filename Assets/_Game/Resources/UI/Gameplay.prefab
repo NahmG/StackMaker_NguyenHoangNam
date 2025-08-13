@@ -198,6 +198,76 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1362678724343054096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5575616597881483981}
+  m_Layer: 5
+  m_Name: GemTextSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5575616597881483981
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362678724343054096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6297641913830346264}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 300, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2066317841641990984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7571957314846447319}
+  m_Layer: 5
+  m_Name: GemSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7571957314846447319
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066317841641990984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6297641913830346264}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -132}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3125366652228363983
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +356,7 @@ GameObject:
   - component: {fileID: 2509153717947304292}
   - component: {fileID: 8384511144979427141}
   m_Layer: 5
-  m_Name: DiaCount
+  m_Name: GemCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,6 +515,8 @@ RectTransform:
   m_Children:
   - {fileID: 3913572520085000515}
   - {fileID: 7253286566840950261}
+  - {fileID: 5575616597881483981}
+  - {fileID: 7571957314846447319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -544,8 +616,11 @@ MonoBehaviour:
   hasFadeTransition: 0
   levelText: {fileID: 4717058430359276919}
   settingButton: {fileID: 5157865682097328347}
-  diamondPref: {fileID: 0}
-  diamondCount: {fileID: 8384511144979427141}
+  gemTextSpawnTf: {fileID: 5575616597881483981}
+  gemAddText: {fileID: 596479591659851089, guid: c31585cf59bbd574da6d97f0aab8ab3b, type: 3}
+  gemSpawnTf: {fileID: 7571957314846447319}
+  UIGemPref: {fileID: 6439957240624011276, guid: c2bb4622afe28df4183a5bf241b6118b, type: 3}
+  gemCounter: {fileID: 8384511144979427141}
 --- !u!1 &5808723827223722570
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7, y: 576}
+  m_AnchoredPosition: {x: -7, y: 587}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4890733584323347539
@@ -833,7 +908,7 @@ GameObject:
   - component: {fileID: 6236236375955094523}
   - component: {fileID: 5060651305676125451}
   m_Layer: 5
-  m_Name: Diamond
+  m_Name: Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -909,7 +984,7 @@ GameObject:
   - component: {fileID: 5724089556363145940}
   - component: {fileID: 471151082338966979}
   m_Layer: 5
-  m_Name: 'Count '
+  m_Name: GoldCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
