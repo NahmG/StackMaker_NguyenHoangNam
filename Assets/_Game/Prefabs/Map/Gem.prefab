@@ -53,7 +53,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &773542862216556290
 MonoBehaviour:
@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 150
+  bonusRate: 100
 --- !u!1001 &7274990770214576824
 PrefabInstance:
   m_ObjectHideFlags: 0

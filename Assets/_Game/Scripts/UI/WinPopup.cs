@@ -26,6 +26,12 @@ public class WinPopup : UICanvas
         };
     }
 
+    void OnDestroy()
+    {
+        nextLevel.onClick.RemoveListener(OnNextLevelBtnClick);
+        replayButton.onClick.RemoveListener(OnReplayBtnClick);
+    }
+
     public override void Setup()
     {
         base.Setup();

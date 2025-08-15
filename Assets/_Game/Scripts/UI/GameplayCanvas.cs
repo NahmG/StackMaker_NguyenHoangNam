@@ -1,7 +1,10 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+using URandom = UnityEngine.Random;
 
 public class GameplayCanvas : UICanvas
 {
@@ -18,6 +21,7 @@ public class GameplayCanvas : UICanvas
     [SerializeField] TMP_Text gemCounter;
     int currentGemCount;
 
+    Action action;
 
     void Awake()
     {
@@ -27,9 +31,28 @@ public class GameplayCanvas : UICanvas
         GameplayManager.Ins.OnUpdateGemCount += OnUpdateGemCount;
     }
 
-    void Update()
+    void OnDestroy()
     {
+        settingButton.onClick.RemoveListener(OnSettingBtnClick);
+        GameplayManager.Ins.OnUpdateGemCount -= OnUpdateGemCount;
+    }
+
+    public override void Setup()
+    {
+        base.Setup();
         levelText.text = LevelManager.Ins.Level.ToString();
+    }
+
+    public override void Open(object param = null)
+    {
+        base.Open(param);
+
+        if (param is Action)
+        {
+            this.action = param as Action;
+        }
+
+        action?.Invoke();
     }
 
     public void OnSettingBtnClick()
@@ -37,10 +60,10 @@ public class GameplayCanvas : UICanvas
         UIManager.Ins.OpenUI(UI.SETTING);
     }
 
-    public void OnUpdateGemCount()
+    public void OnUpdateGemCount(int value)
     {
         AnimateGems();
-        ShowGemAddText();
+        ShowGemAddText(value);
     }
 
     void AnimateGems()
@@ -53,16 +76,16 @@ public class GameplayCanvas : UICanvas
             Transform gem = Instantiate(UIGemPref, gemSpawnTf).transform;
 
             //move to random pos    
-            Vector2 randomPos = (Vector2)gemSpawnTf.position + Random.insideUnitCircle * radius;
+            Vector2 randomPos = (Vector2)gemSpawnTf.position + URandom.insideUnitCircle * radius;
 
             Sequence seq = DOTween.Sequence();
 
-            seq.Append(gem.DOMove(randomPos, .2f)
+            seq.Append(gem.DOMove(randomPos, .5f)
             .SetEase(Ease.OutQuad));
 
             //fly toward gemCounter
             seq.Append(gem.DOMove(gemCounter.transform.position, .5f)
-            .SetDelay(1f)
+            .SetDelay(.5f)
             .SetEase(Ease.InQuad)
             .OnComplete(() =>
             {
@@ -74,16 +97,17 @@ public class GameplayCanvas : UICanvas
         }
     }
 
-    void ShowGemAddText()
+    void ShowGemAddText(int value)
     {
         Transform gemText = Instantiate(gemAddText, gemTextSpawnTf).transform;
+        gemText.GetComponent<Text>().text = $"+{value}";
         gemText.localScale = Vector3.zero;
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(gemText.DOScale(1, .2f)
+        seq.Append(gemText.DOScale(1, .5f)
         .SetEase(Ease.OutBack));
 
-        seq.Append(gemText.DOScale(0, .2f)
+        seq.Append(gemText.DOScale(0, .3f)
         .SetDelay(.5f)
         .SetEase(Ease.InBack)
         .OnComplete(() =>

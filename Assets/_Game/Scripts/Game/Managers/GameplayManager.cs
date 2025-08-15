@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class GameplayManager : MonoBehaviour
     public int brickCount;
     Player player;
     public Player Player => player;
-    Level currentLevel => LevelManager.Ins.CurrentLevel;
+    Level currentLevel;
 
     void Awake()
     {
@@ -44,7 +45,7 @@ public class GameplayManager : MonoBehaviour
 
     void ConstructLevel()
     {
-        LevelManager.Ins.LoadLevel();
+        currentLevel = LevelManager.Ins.LoadLevel();
         if (player == null)
         {
             player = Instantiate(playerPref);
@@ -56,12 +57,13 @@ public class GameplayManager : MonoBehaviour
     #region GAME_PARAMETER
     int gem;
     public int Gem => gem;
-    public Action OnUpdateGemCount;
+    public Action<int> OnUpdateGemCount;
 
-    public void AddDiamond(int value)
+    public void AddGem(int value)
     {
         gem += value;
-        OnUpdateGemCount?.Invoke();
+        OnUpdateGemCount?.Invoke(value);
     }
+
     #endregion
 }

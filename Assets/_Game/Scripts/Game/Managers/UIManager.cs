@@ -89,5 +89,6 @@ public enum UI
     GAME_PLAY,
     WIN,
     SETTING,
-    LOADING
+    LOADING,
+    GET_MORE_GEM
 }

@@ -28,6 +28,11 @@ public class MainMenuCanvas : UICanvas
         };
     }
 
+    void OnDestroy()
+    {
+        playButton.onClick.RemoveListener(OnPlayBtnClick);
+    }
+
     public override void Open(object param = null)
     {
         base.Open(param);

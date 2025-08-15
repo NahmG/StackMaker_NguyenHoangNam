@@ -34,14 +34,15 @@ public class Player : MonoBehaviour
         isWin = false;
         isMoving = false;
         transform.position = startPosition;
-        nextPosition = transform.position;
-        currentDirection = Direction.NONE;
+        SetDirection(Direction.NONE);
 
         skinTf.gameObject.SetActive(true);
     }
 
     public void OnDespawn()
     {
+        SetDirection(Direction.NONE);
+
         ClearBrick();
         skinTf.gameObject.SetActive(false);
     }
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
     PlayerInput playerInput = new();
     Direction currentDirection;
     public Direction Direction => currentDirection;
+    Vector3 saveNextPosition;
     bool isMoving;
     Vector3 nextPosition;
 
@@ -79,9 +81,20 @@ public class Player : MonoBehaviour
         else
         {
             isMoving = true;
-            transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
         }
+        transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
+    }
 
+    public void StopMove()
+    {
+        isMoving = false;
+        saveNextPosition = nextPosition;
+        nextPosition = transform.position;
+    }
+
+    public void Continue()
+    {
+        nextPosition = saveNextPosition;
     }
 
     public Vector3 GetNextPoint(Direction direction)

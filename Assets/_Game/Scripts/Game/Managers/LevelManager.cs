@@ -12,7 +12,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Level[] levels;
 
     Level currentLevel;
-    public Level CurrentLevel => currentLevel;
     int levelIndex;
     public int Level => levelIndex;
 
@@ -26,13 +25,14 @@ public class LevelManager : MonoBehaviour
         levelIndex = levelIndex < levels.Length ? levelIndex + 1 : levelIndex;
     }
 
-    public void LoadLevel()
+    public Level LoadLevel()
     {
         if (currentLevel != null)
         {
             Destroy(currentLevel.gameObject);
         }
         currentLevel = Instantiate(GetPrefabLevel(), transform);
+        return currentLevel;
     }
 
     Level GetPrefabLevel()

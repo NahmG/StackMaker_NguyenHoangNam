@@ -12,6 +12,11 @@ public class SettingPopup : UICanvas
         closeButton.onClick.AddListener(OnCloseButtonClick);
     }
 
+    void OnDestroy()
+    {
+        closeButton.onClick.RemoveListener(OnCloseButtonClick);
+    }
+
     public override void Open(object param = null)
     {
         base.Open(param);
